@@ -1,0 +1,301 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        {{#if isAuthenticated}}
+            <h1>
+                Charge the customer For the last hour
+            </h1>
+            <form id="form_id" name="myform">
+                <br />
+                <label for="fname">
+                    Email of the customer Charged:
+                </label>
+                <input
+                    type="text"
+                    id="username"
+                    name="quantity"
+                    value={{username}}
+                />
+                <br />
+                <label for="fname">
+                    Enter Quantity for the charge:
+                </label>
+                <input type="text" id="quantity" name="quantity" />
+                <br />
+                <input
+                    type="button"
+                    value="Charge"
+                    id="submit"
+                    onclick="validate()"
+                />
+                <h4>
+                    Charged object
+                </h4>
+                <div id="result"></div>
+                <br />
+                <input
+                    type="button"
+                    value="Hit azure Graph API /me"
+                    id="submit"
+                    onclick="validate1()"
+                />
+                <div id="me"></div>
+                <br />
+                <input
+                    type="button"
+                    value="Get Subscriptions by billing account"
+                    id="submit"
+                    onclick="validate2()"
+                />
+                <div id="sub"></div>
+                <br />
+                <input
+                    type="button"
+                    value="Get Subscriptions of user"
+                    id="submit"
+                    onclick="validate3()"
+                />
+                <div id="sub1"></div>
+                <br />
+                <input
+                    type="button"
+                    value="Graph /users"
+                    id="submit"
+                    onclick="users()"
+                />
+                <br />
+                <div id="table"></div>
+                <br />
+                <input
+                    type="button"
+                    value="Graph /applications"
+                    id="submit"
+                    onclick="applications()"
+                />
+                <br />
+                <div id="tableApp"></div>
+                <br />
+                <input
+                    type="button"
+                    value="Graph /groups"
+                    id="submit"
+                    onclick="groups()"
+                />
+                <br />
+                <div id="groups"></div>
+                <input
+                    type="button"
+                    value="Graph /subscriptions"
+                    id="submit"
+                    onclick="subscriptions()"
+                />
+                <br />
+                <div id="subcriptions"></div>
+                <input
+                    type="button"
+                    value="Graph /subscriptions"
+                    id="submit"
+                    onclick="services()"
+                />
+                <br />
+                <div id="services"></div>
+            </form>
+
+            <script>
+                async function validate() {
+            var quantity = document.getElementById("quantity").value;
+            var username = document.getElementById("username").value;
+            let payload = { email: username };
+            let res = await
+                axios.post("http://localhost:3000/api/users/userInfo", payload);
+
+            const now = new Date()
+            var d = new Date();
+            d.setHours(d.getHours() - 1);
+
+            let payload1 = {
+                SubId: res.data.subscriptionId,
+                quantity: quantity,
+                planId: res.data.planId,
+                effectiveStartTime: d.toISOString()
+            };
+
+            let res1 = await
+                axios.post("http://localhost:3000/api/azure/chargeClient", payload1);
+            console.log(res1.data)
+            document.getElementById("result").innerHTML =
+                JSON.stringify(res1.data, null, 4);
+        }
+
+        async function validate1() {
+            try {
+                let res = await
+                    axios.get("http://localhost:3000/api/resources/test");
+
+                document.getElementById("me").innerHTML = JSON.stringify(
+                    res.data,
+                    null,
+                    4
+                );
+            } catch (err) { console.log(err) }
+
+  }
+async function validate2() {
+            try {
+                let res = await
+                    axios.get("http://localhost:3000/api/resources/test3");
+
+                document.getElementById("sub").innerHTML = JSON.stringify(
+                    res.data,
+                    null,
+                    4
+                );
+                console.log(res.data.error)
+            } catch (err) { console.log(err) }
+
+  }
+  async function validate3() {
+            try {
+                let res = await
+                    axios.get("http://localhost:3000/api/resources/test4");
+
+                document.getElementById("sub1").innerHTML = JSON.stringify(
+                    res.data,
+                    null,
+                    4
+                );
+                console.log(res.data.error)
+            } catch (err) { console.log(err) }
+
+  }
+
+
+  
+    async function users() {
+            try {
+                let res = await
+                    axios.get("http://localhost:3000/api/resources/users");
+                
+                let data=res.data.value
+             
+                let myTable = document.querySelector('#table');
+                let headers = ["S no",'displayName', 'givenName', 'jobTitle',"mail","mobilePhone","officeLocation","preferredLanguage","surname","userPrincipalName","id"];
+                let table =document.createElement('table')
+                    let headerRow = document.createElement('tr');
+                    
+                    headers.forEach(headerText => {
+                    let header = document.createElement('th');
+                    let textNode = document.createTextNode(headerText);
+                    header.appendChild(textNode);
+                    headerRow.appendChild(header);
+                    })
+                    myTable.appendChild(headerRow);
+            data.forEach(emp => {
+                    let row = document.createElement('tr');
+            
+                            Object.values(emp).forEach(text => {
+                            let cell = document.createElement('td');
+                            let textNode = document.createTextNode(text);
+                            cell.appendChild(textNode);
+                            row.appendChild(cell);
+                                })
+                    myTable.appendChild(row);
+            });
+            myTable.appendChild(table);
+
+              
+                console.log(res.data.error)
+            } catch (err) { console.log(err) }
+
+  }
+
+  async function applications () {
+            try {
+                let res = await axios.get("http://localhost:3000/api/resources/applications");
+                let data=res.data
+                let headers = ["id","name"];
+               
+                
+                let myTable = document.querySelector('#tableApp');
+                let tableApp =document.createElement('tableApp')
+                let headerRow = document.createElement('tr');
+                                headers.forEach(headerText => {
+                                let header = document.createElement('th');
+                                let textNode = document.createTextNode(headerText);
+                                header.appendChild(textNode);
+                                headerRow.appendChild(header);
+                                })
+                myTable.appendChild(headerRow);
+                                data.forEach(emp => {
+                                let row = document.createElement('tr');
+                        
+                                Object.values(emp).forEach(text => {
+                                let cell = document.createElement('td');
+                                let textNode = document.createTextNode(text);
+                                cell.appendChild(textNode);
+                                row.appendChild(cell);
+                                    })
+                myTable.appendChild(row);
+            });
+            myTable.appendChild(tableApp);
+               
+              
+
+              
+            } catch (err) { console.log(err) }
+
+  }
+
+
+async function groups() {
+    try{
+let res = await axios.get("http://localhost:3000/api/resources/groups");
+document.getElementById("groups").innerHTML = JSON.stringify(
+                    res.data,
+                    null,
+                    4
+                );
+    }catch(err){console.log(err)}
+}
+
+
+
+async function subscriptions() {
+    try{
+let res = await axios.get("http://localhost:3000/api/resources/subscriptions");
+document.getElementById("subcriptions").innerHTML = JSON.stringify(
+                    res.data,
+                    null,
+                    4
+                );
+    }catch(err){console.log(err)}
+}
+
+async function services() {
+            try {
+                let res = await
+                    axios.get("http://localhost:3000/api/resources/Services");
+
+                document.getElementById("services").innerHTML = JSON.stringify(
+                    res.data,
+                    null,
+                    4
+                );
+                console.log(res.data.error)
+            } catch (err) { console.log(err) }
+
+  }
+            </script>
+        {{else}}
+            <p>
+                Welcome to Powerboard
+            </p>
+            <a href="/login">
+                Sign in
+            </a>
+        {{/if}}
+    </body>
+</html>
