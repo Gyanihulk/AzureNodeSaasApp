@@ -53,6 +53,7 @@ router.post(
     try {
       let url = `https://marketplaceapi.microsoft.com/api/saas/subscriptions/resolve?api-version=2018-08-31`;
       // axios request for subcription info
+      const urlObj = new URL(token);
       const searchParams = new URLSearchParams(urlObj.search);
       const offerToken = searchParams.get("token");
       const unicodeToken = decodeURIComponent(offerToken);
