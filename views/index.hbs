@@ -50,7 +50,7 @@
         let payload = { token: marketPlaceToken };
 
         let res = await axios.post(
-          `${process.env.DOMAIN_NAME}/api/azure/getOfferDetails`,
+          `https://azuresaasapp.onrender.com/api/azure/getOfferDetails`,
           payload
         );
         // console.log(res.data);
@@ -111,10 +111,10 @@
        
 
         let res = await axios.post(
-          `${process.env.DOMAIN_NAME}/api/azure/Activate`,
+          `https://azuresaasapp.onrender.com/api/azure/Activate`,
           payload
         );
-        window.location.href = `${process.env.DOMAIN_NAME}/login`;
+        window.location.href = `https://azuresaasapp.onrender.com/login`;
         console.log(res)
       }
     </script>
