@@ -7,7 +7,6 @@ function isAuthenticated(req, res, next) {
   if (!req.session.isAuthenticated) {
     return res.render("login"); // redirect to sign-in route
   }
-
   next();
 }
 async function GetRoleDef(id,token){

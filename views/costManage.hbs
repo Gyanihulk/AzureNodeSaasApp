@@ -59,7 +59,7 @@
 async function subscriptions() {
             try {
                 let res = await
-                    axios.get("http://localhost:3000/api/cost/subscriptions");
+                    axios.get(`${process.env.DOMAIN_NAME}/api/cost/subscriptions`);
 
                 document.getElementById("subscriptions").innerHTML = JSON.stringify(
                     res.data,
@@ -76,7 +76,7 @@ async function cost() {
     let payload = { start,end };
             try {
                 let res = await
-                    axios.post("http://localhost:3000/api/cost/costByResourceGroups",payload);
+                    axios.post(`${process.env.DOMAIN_NAME}/api/cost/costByResourceGroups`,payload);
 
                 document.getElementById("cost").innerHTML = JSON.stringify(
                     res.data,
@@ -90,7 +90,7 @@ async function cost() {
   async function resourceGroups() {
             try {
                 let res = await
-                    axios.get("http://localhost:3000/api/cost/resourceGroups");
+                    axios.get(`${process.env.DOMAIN_NAME}/api/cost/resourceGroups`);
                 
                 let data=res.data
                 let headers = ["id","name"];

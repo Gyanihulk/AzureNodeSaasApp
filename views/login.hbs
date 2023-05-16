@@ -38,12 +38,12 @@
             password: password,
           };
           
-          let res = await axios.post("http://localhost:3000/api/auth", payload);
+          let res = await axios.post(`${process.env.DOMAIN_NAME}/api/auth`, payload);
           if(res.status==200){
             localStorage.setItem("jwt", res.data.token);
             localStorage.setItem("SubId", res.data.subId);
-            window.location.href="http://localhost:3000/api/auth/signin";
-            {{!-- window.location.href = "http://localhost:3000/dashboard"; --}}
+            window.location.href=`${process.env.DOMAIN_NAME}/api/auth/signin`;
+            {{!-- window.location.href = `${process.env.DOMAIN_NAME}/dashboard`; --}}
             console.log(res.data)
             
           }

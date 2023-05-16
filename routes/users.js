@@ -56,12 +56,12 @@ router.get(
 
 
 var transport = nodemailer.createTransport({
-  host: "smtp.mailtrap.io",
+  host: "sandbox.smtp.mailtrap.io",
   port: 2525,
   auth: {
-    user: "088edb57d87ba4",
-    pass: "201ce69f41c0b8",
-  },
+    user: "13828afde8c653",
+    pass: "7540296db51ee2"
+  }
 });
 
 /* const errors=config.get('errors'); */
@@ -92,10 +92,9 @@ router.post(
       if (user) {
         res.status(400).json({ errors: [{ msg: "user already exists" }] });
       }
-
       user = new User({
-        name,
-        email,
+        username:name,
+        email:email,
         subscriptionId,
         password,
         tenantId,
@@ -130,18 +129,10 @@ console.log(user)
           .status(200)
           .send({ message: "Mail send", message_id: info.messageId });
       });
-      jwt.sign(
-        payload,
-        config.get("jwtSecret"),
-        { expiresIn: 36000 },
-        (err, token) => {
-          if (err) throw err;
-          res.json({ token });
-        }
-      );
+      
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("Server error");
+      // res.status(500).send("Server error");
     }
   }
 );

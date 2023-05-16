@@ -101,7 +101,7 @@ router.post("/Activate", async (req, res) => {
 
     console.log(`Subscription Activated`);
     try {
-      let url = `http://localhost:3000/api/users`;
+      let url = `${process.env.DOMAIN_NAME}/api/users`;
 
       //create new account
       let response = await axios({

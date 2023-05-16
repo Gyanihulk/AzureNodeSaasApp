@@ -110,7 +110,7 @@
             var username = document.getElementById("username").value;
             let payload = { email: username };
             let res = await
-                axios.post("http://localhost:3000/api/users/userInfo", payload);
+                axios.post(`${process.env.DOMAIN_NAME}/api/users/userInfo`, payload);
 
             const now = new Date()
             var d = new Date();
@@ -124,7 +124,7 @@
             };
 
             let res1 = await
-                axios.post("http://localhost:3000/api/azure/chargeClient", payload1);
+                axios.post(`${process.env.DOMAIN_NAME}/api/azure/chargeClient`, payload1);
             console.log(res1.data)
             document.getElementById("result").innerHTML =
                 JSON.stringify(res1.data, null, 4);
@@ -133,7 +133,7 @@
         async function validate1() {
             try {
                 let res = await
-                    axios.get("http://localhost:3000/api/resources/test");
+                    axios.get(`${process.env.DOMAIN_NAME}/api/resources/test`);
 
                 document.getElementById("me").innerHTML = JSON.stringify(
                     res.data,
@@ -146,7 +146,7 @@
 async function validate2() {
             try {
                 let res = await
-                    axios.get("http://localhost:3000/api/resources/test3");
+                    axios.get(`${process.env.DOMAIN_NAME}/api/resources/test3`);
 
                 document.getElementById("sub").innerHTML = JSON.stringify(
                     res.data,
@@ -160,7 +160,7 @@ async function validate2() {
   async function validate3() {
             try {
                 let res = await
-                    axios.get("http://localhost:3000/api/resources/test4");
+                    axios.get(`${process.env.DOMAIN_NAME}/api/resources/test4`);
 
                 document.getElementById("sub1").innerHTML = JSON.stringify(
                     res.data,
@@ -177,7 +177,7 @@ async function validate2() {
     async function users() {
             try {
                 let res = await
-                    axios.get("http://localhost:3000/api/resources/users");
+                    axios.get(`${process.env.DOMAIN_NAME}/api/resources/users`);
                 
                 let data=res.data.value
              
@@ -214,7 +214,7 @@ async function validate2() {
 
   async function applications () {
             try {
-                let res = await axios.get("http://localhost:3000/api/resources/applications");
+                let res = await axios.get(`${process.env.DOMAIN_NAME}/api/resources/applications`);
                 let data=res.data
                 let headers = ["id","name"];
                
@@ -252,7 +252,7 @@ async function validate2() {
 
 async function groups() {
     try{
-let res = await axios.get("http://localhost:3000/api/resources/groups");
+let res = await axios.get(`${process.env.DOMAIN_NAME}/api/resources/groups`);
 document.getElementById("groups").innerHTML = JSON.stringify(
                     res.data,
                     null,
@@ -265,7 +265,7 @@ document.getElementById("groups").innerHTML = JSON.stringify(
 
 async function subscriptions() {
     try{
-let res = await axios.get("http://localhost:3000/api/resources/subscriptions");
+let res = await axios.get(`${process.env.DOMAIN_NAME}/api/resources/subscriptions`);
 document.getElementById("subcriptions").innerHTML = JSON.stringify(
                     res.data,
                     null,
@@ -277,7 +277,7 @@ document.getElementById("subcriptions").innerHTML = JSON.stringify(
 async function services() {
             try {
                 let res = await
-                    axios.get("http://localhost:3000/api/resources/Services");
+                    axios.get(`${process.env.DOMAIN_NAME}/api/resources/Services`);
 
                 document.getElementById("services").innerHTML = JSON.stringify(
                     res.data,

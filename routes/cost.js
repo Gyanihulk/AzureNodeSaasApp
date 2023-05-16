@@ -170,6 +170,7 @@ router.post(
               start,
               end
             );
+            console.log(cost)
             for(let amount of cost){
               console.log(amount[0])
               TotalCost=TotalCost+amount[0]

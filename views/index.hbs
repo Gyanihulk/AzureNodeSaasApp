@@ -50,7 +50,7 @@
         let payload = { token: marketPlaceToken };
 
         let res = await axios.post(
-          "http://localhost:3000/api/azure/getOfferDetails",
+          `${process.env.DOMAIN_NAME}/api/azure/getOfferDetails`,
           payload
         );
         // console.log(res.data);
@@ -111,10 +111,10 @@
        
 
         let res = await axios.post(
-          "http://localhost:3000/api/azure/Activate",
+          `${process.env.DOMAIN_NAME}/api/azure/Activate`,
           payload
         );
-        window.location.href = "http://localhost:3000/login";
+        window.location.href = `${process.env.DOMAIN_NAME}/login`;
         console.log(res)
       }
     </script>

@@ -6,7 +6,6 @@ const config = {
     clientSecret: process.env.AZURE_CLIENT_SECRET_ID,
   }
   
- 
 }
 
 module.export =config

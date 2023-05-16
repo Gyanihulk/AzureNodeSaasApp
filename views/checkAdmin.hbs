@@ -27,7 +27,7 @@
     async function CheckAdmin() {
             try {
                 let res = await
-                    axios.get("http://localhost:3000/api/checkAdmin/");
+                    axios.get(`${process.env.DOMAIN_NAME}/api/checkAdmin/`);
 
                 document.getElementById("CheckAdmin").innerHTML = JSON.stringify(
                     res.data,
