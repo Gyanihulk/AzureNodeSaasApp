@@ -45,15 +45,16 @@
     <script>
       let subscription = {};
       async function getSubData() {
-        let Token = window.location.href;
-        let marketPlaceToken = decodeURIComponent(Token).toString().slice(29);
-        let payload = { token: marketPlaceToken };
-
-        let res = await axios.post(
+         let token = window.location.href;
+    let payload = { token };
+      console.log(payload)
+      let res
+        try{res = await axios.post(
           `https://azuresaasapp.onrender.com/api/azure/getOfferDetails`,
           payload
-        );
-        // console.log(res.data);
+        );}catch(e){console.log("error in the get offer details request",e)}
+        
+        console.log(res.data);
         let subscription = res.data.id;
         document.getElementById("SubId").innerHTML = JSON.stringify(
           res.data.id,
