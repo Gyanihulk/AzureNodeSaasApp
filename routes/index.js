@@ -48,7 +48,8 @@ router.get("/costManage", (req, res) => {
     title: "Cost Management ",
     isAuthenticated: req.session.isAuthenticated,
     username: req.session.account?.username,
-    accessToken:req.session.accessToken
+    accessToken:req.session.accessToken,
+    process
   });
   
 });

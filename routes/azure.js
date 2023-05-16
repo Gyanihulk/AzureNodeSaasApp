@@ -83,7 +83,7 @@ router.post("/Activate", async (req, res) => {
   //Get token for azure account
   let azureToken = await getToken();
   let { subscriptionId, plan, name, email ,tenantId,objectId} = req.body;
-  console.log();
+  
 
   //Activate subscription
   try {
